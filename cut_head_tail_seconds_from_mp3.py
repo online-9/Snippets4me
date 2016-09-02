@@ -28,7 +28,14 @@ if __name__ == '__main__':
                 pass
             else:
                 try:
-                    cut_file(n, args.start, args.end).export(n[:-4]+"_CHANGED.mp3", format="mp3")
+                    if args.output:
+                        if os.path.isdir(args.output):
+                            cut_file(n, args.start, args.end).export(args.output+"/" + n[:-4] + "_CHANGED.mp3", format="mp3")
+                        else:
+                            os.mkdir(args.output)
+                            cut_file(n, args.start, args.end).export(args.output+"/" + n[:-4] + "_CHANGED.mp3", format="mp3")
+                    else:
+                        cut_file(n, args.start, args.end).export(n[:-4]+"_CHANGED.mp3", format="mp3")
                 except:
                     pass
     else:
@@ -36,7 +43,6 @@ if __name__ == '__main__':
             cut_file(args.input, args.start, args.end).export(args.input[:-4] + "_CHANGED.mp3", format="mp3")
         else:
             cut_file(args.input,args.start, args.end).export(args.output, format="mp3")
-
 
 
 
